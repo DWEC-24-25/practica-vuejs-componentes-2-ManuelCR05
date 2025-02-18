@@ -13,7 +13,7 @@
 
     <body>
 
-        <h1 id="autor">Autor: TU NOMBRE AQUÍ</h1>
+        <h1 id="autor">Autor: Manuel Contreras Reyes</h1>
 
         <!-- https://vuejs.org/guide/introduction.html -->
         <div id="app">
@@ -24,31 +24,31 @@
                - Para cada item: (https://vuejs.org/guide/essentials/list.html)
                  - Crear un componente item-data
             -->
+          
+
+            <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
             <div class="mt-4 p-5 rounded" style="background-color: #E9ECEF; margin-bottom: 20px;">
               <div class="container-fluid">
                   <h1 class="display-4" style="font-weight: bold" id="title">{{ col.title }}</h1>
               </div>
             </div>
-            <div class="container-fluid d-sm-flex d-block justify-content-center">
-                <div v-for="item in col.collection.items" class="card" style="width: 25rem;">
-                    <div class="card-body">
-                        <dl>
-                            <div v-for="data in item.data">
-                                <dt  class="card-title">{{ data.prompt  }}</dt>
-                                <dd class="card-title">{{ data.value  }}</dd>
-                            </div>
-                            <a v-bind:href="item.href" class="btn btn-primary">Ver</a>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-          
-
-            <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
-            
 
             <!-- TODO: Iterar sobre los items y mostrar cada uno usando el componente item-data -->
-            
+            <div class="container-fluid d-sm-flex d-block justify-content-center">
+              <div v-for="item in col.items" :key="item.href" class="card" style="width: 25rem;">
+                  <div class="card-body">
+                      <item-data :item="item">
+                        <dl>
+                          <div v-for="data in item.data">
+                            <dt  class="card-title">{{ data.prompt  }}</dt>
+                            <dd class="card-title">{{ data.value  }}</dd>
+                          </div>
+                          <a v-bind:href="item.href" class="btn btn-primary">Ver</a>
+                        </dl>
+                      </item-data>
+                  </div>
+              </div>
+            </div>
 
         </div>
 
