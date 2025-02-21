@@ -38,7 +38,7 @@ const server_data = {
 };
 
 // Componente edit-form
-const EditForm = defineComponent({
+const EditForm = Vue.defineComponent({
     template: `
         <div>
             <h2>Edit Form</h2>
@@ -47,8 +47,8 @@ const EditForm = defineComponent({
     `
 });
 
-// Componente item-data
-const ItemData = defineComponent({
+// // Componente item-data
+const ItemData = Vue.defineComponent({
     props: {
         item: {
             type: Object,
@@ -67,15 +67,23 @@ const ItemData = defineComponent({
 });
 
 // Crear la aplicación Vue
-const app = createApp({
+const app = Vue.createApp({
     setup() {
-        const col = reactive(server_data.collection);
+        const col = Vue.reactive(server_data.collection);
 
         return {
             col
         };
     }
 });
+
+// const app = Vue.createApp({
+//     data() {
+//       return {
+//         col: server_data.collection
+//       }
+//     }
+// });
 
 // Registrar los componentes globalmente
 app.component('edit-form', EditForm);

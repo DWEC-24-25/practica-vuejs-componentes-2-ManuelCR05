@@ -32,23 +32,20 @@
                   <h1 class="display-4" style="font-weight: bold" id="title">{{ col.title }}</h1>
               </div>
             </div>
-
             <!-- TODO: Iterar sobre los items y mostrar cada uno usando el componente item-data -->
             <div class="container-fluid d-sm-flex d-block justify-content-center">
-              <div v-for="item in col.items" :key="item.href" class="card" style="width: 25rem;">
+              <div v-for="item in col.items" class="card" style="width: 25rem;">
                   <div class="card-body">
-                      <item-data :item="item">
-                        <dl>
+                      <dl>
                           <div v-for="data in item.data">
-                            <dt  class="card-title">{{ data.prompt  }}</dt>
-                            <dd class="card-title">{{ data.value  }}</dd>
+                              <dt  class="card-title">{{ data.prompt  }}</dt>
+                              <dd class="card-title">{{ data.value  }}</dd>
                           </div>
                           <a v-bind:href="item.href" class="btn btn-primary">Ver</a>
-                        </dl>
-                      </item-data>
+                      </dl>
                   </div>
               </div>
-            </div>
+          </div>
 
         </div>
 
