@@ -38,38 +38,64 @@ const server_data = {
 };
 
 // Componente edit-form
-const EditForm = defineComponent({
-    template: `
-        <div>
-            <h2>Edit Form</h2>
-            <!-- Aquí iría el formulario de edición -->
-        </div>
-    `
-});
-
-// Componente item-data
-const ItemData = defineComponent({
+const EditForm = Vue.defineComponent({
     props: {
         item: {
             type: Object,
             required: true
         }
     },
+    emits: ["formClosed"],
     template: `
-        <div>
-            <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
-            <p>{{ item.data.find(d => d.name === 'description').value }}</p>
-            <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
-            <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-            <a :href="item.href" target="_blank">More Info</a>
-        </div>
+        <dl>    
+            <div v-for="data in item.data">
+                <dt>{{ data.prompt }}</dt>
+                <dd v-if="data.name != 'description'"><input type="text" v-model="data.value" /></dd>
+                <dd v-else><textarea type="text" v-model="data.value" style="height: 300px; width:250px" /></dd>
+            </div>
+            <button @click="$emit('formClosed')" class="btn btn-primary mt-2">Cerrar</button>
+        </dl>
+    `
+});
+
+// // Componente item-data
+const ItemData = Vue.defineComponent({
+    props: {
+        item: {
+            type: Object,
+            required: true
+        }
+    },
+    data() {
+        return {
+            visible: false
+        };
+    },
+    methods: {
+        toggleEditFormVisibility() {
+            this.visible = !this.visible;
+        }
+    },
+    components: {
+        EditForm
+    },
+    template: `
+        <dl v-if="!visible">
+            <div v-for="data in item.data">
+                <dt>{{ data.prompt }}</dt>
+                <dd>{{ data.value }}</dd>
+            </div>
+            <a :href="item.href" target="_blank" class="btn btn-primary me-1">Ver</a>
+            <button @click="toggleEditFormVisibility" class="btn btn-secondary">Editar</button>
+        </dl>
+        <edit-form v-if="visible" :item="item" @formClosed="toggleEditFormVisibility"></edit-form>
     `
 });
 
 // Crear la aplicación Vue
-const app = createApp({
+const app = Vue.createApp({
     setup() {
-        const col = reactive(server_data.collection);
+        const col = Vue.reactive(server_data.collection);
 
         return {
             col
