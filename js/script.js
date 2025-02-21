@@ -56,13 +56,18 @@ const ItemData = Vue.defineComponent({
         }
     },
     template: `
-        <div>
-            <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
-            <p>{{ item.data.find(d => d.name === 'description').value }}</p>
-            <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
-            <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-            <a :href="item.href" target="_blank">More Info</a>
-        </div>
+        <dl>
+            <dt>{{ item.data.find(d => d.name === 'name').prompt }}</dt>
+            <dd>{{ item.data.find(d => d.name === 'name').value }}</dd>
+            <dt>{{ item.data.find(d => d.name === 'description').prompt }}</dt>
+            <dd>{{ item.data.find(d => d.name === 'description').value }}</dd>
+            <dt>{{ item.data.find(d => d.name === 'director').prompt }}</dt>
+            <dd>{{ item.data.find(d => d.name === 'director').value }}</dd>
+            <dt>{{ item.data.find(d => d.name === 'datePublished').prompt }}</dt>
+            <dd>{{ item.data.find(d => d.name === 'datePublished').value }}</dd>
+            <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
+            <a @click="edit-form" target="_blank" class="btn btn-secondary">Editar</a>
+        </dl>
     `
 });
 

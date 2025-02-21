@@ -35,11 +35,10 @@
             <!-- TODO: Iterar sobre los items y mostrar cada uno usando el componente item-data -->
             <div class="container-fluid d-sm-flex d-block justify-content-center">
               <div v-for="item in col.items" class="card" style="width: 25rem;">
-                  <div class="card-body">
-                    <dl>
+                <div class="card-body">
+                    <div>
                       <item-data :item="item"></item-data>
-                      <a @click="edit-form" class="btn btn-secondary">Editar</a>
-                    </dl>
+                    </div>
                 </div>
               </div>
           </div>
