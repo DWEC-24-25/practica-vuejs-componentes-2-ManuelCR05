@@ -39,11 +39,21 @@ const server_data = {
 
 // Componente edit-form
 const EditForm = Vue.defineComponent({
+    props: {
+        item: {
+            type: Object,
+            required: true
+        }
+    },
+    emits: ["formClosed"],
     template: `
-        <div>
-            <h2>Edit Form</h2>
-            <!-- Aquí iría el formulario de edición -->
-        </div>
+        <dl>    
+            <div v-for="data in item.data" :key="data.name">
+                <dt>{{ data.prompt }}</dt>
+                <dd><input type="text" v-model="data.value" /></dd>
+            </div>
+            <button @click="$emit('formClosed')" class="btn btn-primary mt-2">Cerrar</button>
+        </dl>
     `
 });
 
@@ -65,21 +75,19 @@ const ItemData = Vue.defineComponent({
             this.visible = !this.visible;
         }
     },
+    components: {
+        EditForm
+    },
     template: `
-        <dl>
-            <dt>{{ item.data.find(d => d.name === 'name').prompt }}</dt>
-            <dd>{{ item.data.find(d => d.name === 'name').value }}</dd>
-            <dt>{{ item.data.find(d => d.name === 'description').prompt }}</dt>
-            <dd>{{ item.data.find(d => d.name === 'description').value }}</dd>
-            <dt>{{ item.data.find(d => d.name === 'director').prompt }}</dt>
-            <dd>{{ item.data.find(d => d.name === 'director').value }}</dd>
-            <dt>{{ item.data.find(d => d.name === 'datePublished').prompt }}</dt>
-            <dd>{{ item.data.find(d => d.name === 'datePublished').value }}</dd>
+        <dl v-if="!visible">
+            <div v-for="data in item.data" :key="data.name">
+                <dt>{{ data.prompt }}</dt>
+                <dd>{{ data.value }}</dd>
+            </div>
             <a :href="item.href" target="_blank" class="btn btn-primary me-1">Ver</a>
-            <a @click="toggleEditFormVisibility" target="_blank" class="btn btn-secondary">Editar</a>
-
-            <edit-form v-if="visible" @formClosed="toggleEditFormVisibility"></edit-form>
+            <button @click="toggleEditFormVisibility" class="btn btn-secondary">Editar</button>
         </dl>
+        <edit-form v-if="visible" :item="item" @formClosed="toggleEditFormVisibility"></edit-form>
     `
 });
 
