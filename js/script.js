@@ -55,6 +55,16 @@ const ItemData = Vue.defineComponent({
             required: true
         }
     },
+    data() {
+        return {
+            visible: false
+        };
+    },
+    methods: {
+        toggleEditFormVisibility() {
+            this.visible = !this.visible;
+        }
+    },
     template: `
         <dl>
             <dt>{{ item.data.find(d => d.name === 'name').prompt }}</dt>
@@ -65,8 +75,10 @@ const ItemData = Vue.defineComponent({
             <dd>{{ item.data.find(d => d.name === 'director').value }}</dd>
             <dt>{{ item.data.find(d => d.name === 'datePublished').prompt }}</dt>
             <dd>{{ item.data.find(d => d.name === 'datePublished').value }}</dd>
-            <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
-            <a @click="edit-form" target="_blank" class="btn btn-secondary">Editar</a>
+            <a :href="item.href" target="_blank" class="btn btn-primary me-1">Ver</a>
+            <a @click="toggleEditFormVisibility" target="_blank" class="btn btn-secondary">Editar</a>
+
+            <edit-form v-if="visible" @formClosed="toggleEditFormVisibility"></edit-form>
         </dl>
     `
 });
@@ -81,14 +93,6 @@ const app = Vue.createApp({
         };
     }
 });
-
-// const app = Vue.createApp({
-//     data() {
-//       return {
-//         col: server_data.collection
-//       }
-//     }
-// });
 
 // Registrar los componentes globalmente
 app.component('edit-form', EditForm);
