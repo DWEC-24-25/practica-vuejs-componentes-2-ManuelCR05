@@ -50,7 +50,8 @@ const EditForm = Vue.defineComponent({
         <dl>    
             <div v-for="data in item.data">
                 <dt>{{ data.prompt }}</dt>
-                <dd><input type="text" v-model="data.value" /></dd>
+                <dd v-if="data.name != 'description'"><input type="text" v-model="data.value" /></dd>
+                <dd v-else><textarea type="text" v-model="data.value" style="height: 300px; width:250px" /></dd>
             </div>
             <button @click="$emit('formClosed')" class="btn btn-primary mt-2">Cerrar</button>
         </dl>
