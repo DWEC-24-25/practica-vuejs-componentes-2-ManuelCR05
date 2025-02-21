@@ -48,7 +48,7 @@ const EditForm = Vue.defineComponent({
     emits: ["formClosed"],
     template: `
         <dl>    
-            <div v-for="data in item.data" :key="data.name">
+            <div v-for="data in item.data">
                 <dt>{{ data.prompt }}</dt>
                 <dd><input type="text" v-model="data.value" /></dd>
             </div>
@@ -80,7 +80,7 @@ const ItemData = Vue.defineComponent({
     },
     template: `
         <dl v-if="!visible">
-            <div v-for="data in item.data" :key="data.name">
+            <div v-for="data in item.data">
                 <dt>{{ data.prompt }}</dt>
                 <dd>{{ data.value }}</dd>
             </div>
