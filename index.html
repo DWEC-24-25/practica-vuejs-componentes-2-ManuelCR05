@@ -36,14 +36,11 @@
             <div class="container-fluid d-sm-flex d-block justify-content-center">
               <div v-for="item in col.items" class="card" style="width: 25rem;">
                   <div class="card-body">
-                      <dl>
-                          <div v-for="data in item.data">
-                              <dt  class="card-title">{{ data.prompt  }}</dt>
-                              <dd class="card-title">{{ data.value  }}</dd>
-                          </div>
-                          <a v-bind:href="item.href" class="btn btn-primary">Ver</a>
-                      </dl>
-                  </div>
+                    <dl>
+                      <item-data :item="item"></item-data>
+                      <a @click="edit-form" class="btn btn-secondary">Editar</a>
+                    </dl>
+                </div>
               </div>
           </div>
 
